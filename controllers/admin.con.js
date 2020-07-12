@@ -145,8 +145,9 @@ exports.postEditProduct = (req, res, next) => {
         description: description
       }
       if (image) {
-        fs.unlink(path.join(rootDir, 'public', 'data', 'images', 'product-images', porduct.image), err => {
+        fs.unlink(path.join(rootDir, 'public', 'data', 'images', 'product-images', product.image), err => {
           if (err) {
+            console.log("error deleting old image");
             const error = new Error(err);
             error.httpStatusCode = 500;
             return next(error);
@@ -157,12 +158,14 @@ exports.postEditProduct = (req, res, next) => {
       Product.updateOne({ _id: req.body._id }, editedProduct).then(() => {
         res.redirect('/admin/products');
       }).catch(err => {
+        console.log("error updating in the database");
         const error = new Error(err);
         error.httpStatusCode = 500;
         return next(error);
       });
     }
   }).catch(err => {
+    console.log("error finding product in the database", err);
     const error = new Error(err);
     error.httpStatusCode = 500;
     return next(error);
