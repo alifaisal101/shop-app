@@ -10,11 +10,13 @@ block title
 
 block content       
     main
+        if err  
+            p(style="color:red; text-align:center") invaild quantity
         if cartProducts.length >0
             ul.cart__item-list
                 each cartProduct in cartProducts
                     li.cartProduct 
-                        h3 #{cartProduct.title} 
+                        h3 #{cartProduct.title}
                         form(action="/edit-quantity", method="post")
                             input(type="hidden", name="_csrf", value=csrfToken)
                             input(type="hidden",name="cartProductId",value=cartProduct._id)

@@ -148,7 +148,7 @@ exports.getCart = (req, res, next) => {
       cartProducts: cartProducts,
       totalPrice: totalPrice,
       page: "cart",
-
+      err: req.query.err ? req.query.err : 0
     });
   }).catch(err => {
     const error = new Error(err);
@@ -165,7 +165,7 @@ exports.editQuantity = (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(422).redirect('/cart');
+    return res.status(422).redirect('/cart?err=invaild-quant');
   }
 
   for (let i = 0; i < res.userData.cart.items.length; i++) {
@@ -267,13 +267,3 @@ exports.getOrders = (req, res, next) => {
     return next(error);
   });
 };
-
-exports.getInvoice = (req, res, next) => {
-  const invoiceName = `invoice-${req.params.orderId}.pdf`;
-  const invoice = path.join(rootDir, 'private', 'invoices', invoiceName);
-
-  const file = fs.createReadStream(invoice);
-  res.setHeader('Content-Type', 'application/pdf');
-  res.setHeader('Content-Disposition', `inline; filename="${invoiceName}"`);
-  file.pipe(res);
-}

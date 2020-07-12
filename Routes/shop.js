@@ -36,7 +36,7 @@ router.get("/cart", authMiddleWare.isUser, shopController.getCart);
 router.post("/edit-quantity",
     authMiddleWare.isUser,
     body('quantity').isNumeric().custom(value => {
-        if (50 > value && value > 0) {
+        if (99 > value && value > 0) {
             return true;
         } else {
             throw "invaild value";
@@ -54,7 +54,5 @@ router.post("/del-cartProduct/:cartProductId",
 router.get("/orders", authMiddleWare.isUser, shopController.getOrders);
 
 router.post("/checkout", authMiddleWare.isUser, shopController.getCheckout);
-
-router.get("/orders/invoice/:orderId", authMiddleWare.isUser, param('orderId').isMongoId(), authMiddleWare.isOrderGuy, shopController.getInvoice);
 
 module.exports = router;
