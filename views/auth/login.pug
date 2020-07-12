@@ -1,0 +1,33 @@
+extends ../layouts/main-layout
+
+block title
+    title Login
+
+block styles 
+    link(rel="stylesheet", href="/css/forms.css")
+
+block content
+    main    
+        form.login-form(action="/login" ,method="POST")
+            input(type="hidden", name="_csrf", value=csrfToken)
+            .form-control
+                label(for="email") Email
+                input(type="email", name="email", id="email", value=email)
+            .form-control
+                label(for="password") Password
+                input(type="password", name="password",id="password" )
+            button.btn(type="submit") Submit
+        p(align="center") Don't have an account ? 
+            a(href="/register") Register here
+        p(align="center") Forgot your password ?  
+            a(href="pass-reset") Reset it here
+        case msg
+            when "noemailfound"
+                p.errMsg No such user with this email
+            when "wrongpassword"
+                p.errMsg Wrong password
+            when "passresetsuccssfully"
+                p.succssNote Your password has been reset succssfully
+            when "invalidemail"
+                p.errMsg Please enter a vaild email
+            

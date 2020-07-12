@@ -1,0 +1,37 @@
+extends ../layouts/main-layout
+
+block styles
+    link(rel="stylesheet", href="/css/product.css")
+    link(rel="stylesheet", href="/css/forms.css")
+    link(rel="stylesheet", href="/css/cart.css")
+
+block title
+    title Cart
+
+block content       
+    main
+        if cartProducts.length >0
+            ul.cart__item-list
+                each cartProduct in cartProducts
+                    li.cartProduct 
+                        h3 #{cartProduct.title} 
+                        form(action="/edit-quantity", method="post")
+                            input(type="hidden", name="_csrf", value=csrfToken)
+                            input(type="hidden",name="cartProductId",value=cartProduct._id)
+                            label(for="quantity") Quantity : 
+                            input(type="text",name="quantity" ,value=cartProduct.quantity )
+                            button.btn(type="submit") Save
+
+                        p Price $#{cartProduct.quantity * cartProduct.price}
+                        
+                        form(action="/del-cartProduct/" + cartProduct._id, method="post")
+                            input(type="hidden", name="_csrf", value=csrfToken)
+                            button.btn.danger(type="submit") Delete
+            
+             
+            h1 Total Price : $#{totalPrice}
+            form(action="/checkout", method="post")
+                input(type="hidden", name="_csrf", value=csrfToken)
+                button.btn(type="submit") Checkout
+        else 
+            h1 Your Shopping cart is empty.

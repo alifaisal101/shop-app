@@ -1,0 +1,23 @@
+extends ../layouts/main-layout.pug
+
+block styles
+    link(rel="stylesheet", href="/css/orders.css")
+
+block title         
+    title Orders
+
+block content 
+    main
+        if ordersObj.orders.length > 0
+            ul.orders
+                each order in ordersObj.orders
+                    li.orders__item 
+                        ul
+                            each item in order.items
+                                h1 title: #{item.title}
+                                h1 price: #{item.price}$
+                                h1 quantity: #{item.quantity}
+                            h4 
+                                a.btn(href=`/orders/invoice/${order._id}`) Invoice
+        else 
+            h1 You have no orders

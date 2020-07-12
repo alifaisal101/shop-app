@@ -1,0 +1,46 @@
+extends ../layouts/main-layout.pug
+
+block title
+    title Register
+
+block styles
+    link(rel="stylesheet", href="/css/forms.css")
+
+block content
+    main
+        form.register-form(action="/register", method="post")
+            input(type="hidden", name="_csrf", value=csrfToken)
+            .form-control
+                .inline-input__con
+                    label(for="firstName") First Name
+                    input.inline-input(type="text", name="firstName",value=firstName, id="firstName")
+                .inline-input__con  
+                    label(for="lastname") Last Name
+                    input.inline-input(type="text", name="lastName",value=lastName, id="lastName")
+            .form-control 
+                label(for="email") Email
+                input(type="email", name="email",value=email, id="email")
+            .form-control
+                label(for="password") Password 
+                input(type="password", name="password", id="password")
+            .form-control
+                label(for="cPassword") Confirm Password
+                input(type="password", name="cPassword", id="cPassword")
+            button.btn(type="submit") Submit
+        p(align="center") Already registerd ? 
+            a(href="/login") Login here
+        case msg
+            when "emptyfields"
+                p.errMsg All fields must be filled
+            when "passwordsdontmatch"
+                p.errMsg Passwords don't match
+            when "emailalreadyinuse"
+                p.errMsg Email already in use    
+            when "invalidemail"
+                p.errMsg please enter a vaild email   
+            when "invalidfirstName"
+                p.errMsg your first name isn't vaild
+            when "invalidlastName"
+                p.errMsg your last name isn't vaild
+            when "invalidpassword"
+                p.errMsg The password should be at least 3 charchters long.

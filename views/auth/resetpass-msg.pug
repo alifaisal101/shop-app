@@ -1,0 +1,15 @@
+extends ../layouts/main-layout
+
+block title
+    title Reset Password
+
+block styles 
+    link(rel="stylesheet", href="/css/forms.css")
+
+block content
+    main
+        case msg
+            when "Expired Session"
+                h2 too late boiiiiiii
+            when "email sent successfully"
+                h2 check your email to complete the password reset proccess

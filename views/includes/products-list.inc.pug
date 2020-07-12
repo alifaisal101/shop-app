@@ -1,0 +1,22 @@
+main
+    if products.length > 0
+        .grid
+            each product in products
+                article.card.product-item
+                    header.card__header
+                        h1.product__title #{product.title}
+
+                    .card__image
+                        img(src=product.image, alt="A Book")
+
+                    .card__content
+                        h2.product__price $#{product.price}
+                        p.product__description #{product.description}
+
+                    .card__actions
+                        a.btn(href="/product-detailes/" + product._id) Detailes
+                        form(action="/add-cart/" + product._id, method="post")
+                            input(type="hidden", name="_csrf", value=csrfToken)
+                            button.btn(type="submit") Add to Cart
+    else 
+        h1 No products
