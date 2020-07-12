@@ -1,5 +1,6 @@
 const path = require("path");
 const crypto = require('crypto');
+const fs = require('fs');
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -21,6 +22,12 @@ const admin = require("./Routes/admin");
 const errorController = require("./controllers/error.con");
 
 const app = express();
+
+if (!fs.existsSync(path.join(rootDir, 'public', 'data'))) {
+  fs.mkdirSync(path.join(rootDir, 'public', 'data'));
+  fs.mkdirSync(path.join(rootDir, 'public', 'data', 'images'));
+  fs.mkdirSync(path.join(rootDir, 'public', 'data', 'images', 'product-images'));
+}
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
