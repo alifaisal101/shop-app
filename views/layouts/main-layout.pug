@@ -46,14 +46,14 @@ html(lang="en")
                 li.mobile-nav__item
                     a(href='/', class=(page === 'Home' ? 'active' : '')) Home
                 li.mobile-nav__item
-                    a(href='/shop', class=(page === 'shop' ? 'active' : '')) Shop
+                    a(href='/shop?page=1', class=(page === 'shop' ? 'active' : '')) Shop
                 if userData 
                     li.mobile-nav__item
                         a(href='/cart', class=(page === 'cart' ? 'active' : '')) Cart
                     li.mobile-nav__item
                         a(href='/orders', class=(page === 'orders' ? 'active' : '')) Orders
                     li.mobile-nav__item
-                        a(href='/admin/products' class=(page === 'products' ? 'active' : '')) Products
+                        a(href='/admin/products?page=1' class=(page === 'products' ? 'active' : '')) Products
                     li.mobile-nav__item
                         a(href='/admin/add-product' class=(page === 'add-product' ? 'active' : '')) Add products
                     li.mobile-nav__item
