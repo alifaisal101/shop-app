@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "eval $(cat .env) nodemon app.js"
+    "start": "nodemon app.js"
   },
   "author": "Ali Faisal",
   "license": "ISC",
@@ -17,20 +17,16 @@
     "body-parser": "^1.19.0",
     "connect-mongo": "^3.2.0",
     "connect-mongodb-session": "^2.3.3",
-    "connect-session-sequelize": "^6.1.1",
     "cookie-parser": "^1.4.5",
     "csurf": "^1.11.0",
-    "ejs": "^2.7.4",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "express-validator": "^6.6.1",
-    "mariadb": "^2.4.2",
     "mongodb": "^3.6.0",
     "mongoose": "^5.9.27",
     "multer": "^1.4.2",
     "mysql2": "^1.7.0",
     "nodemailer": "^6.4.11",
-    "pug": "^2.0.4",
-    "sequelize": "^5.22.3"
+    "pug": "^2.0.4"
   }
 }
