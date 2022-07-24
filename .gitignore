@@ -2,7 +2,7 @@
 *.env
 env-vars
 node_modules
-private
+private/*
 public/*
 !public/css
 !public/js
