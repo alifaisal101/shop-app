@@ -1,0 +1,16 @@
+extends ../layouts/main-layout.pug
+
+block title
+    title Shop
+
+block styles 
+    link(rel="stylesheet", href="/css/product.css")
+
+block content 
+    include ../includes/products-list.inc.pug
+    h3(align="center")
+        each page in pages
+            if page == selectedPage
+                span.btn.page.selectedPage #{page}
+            else
+                a.btn.page(href=`?page=${page}`) #{page}

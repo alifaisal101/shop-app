@@ -1,0 +1,8 @@
+.vscode
+*.env
+env-vars
+node_modules
+private
+public/*
+!public/css
+!public/js

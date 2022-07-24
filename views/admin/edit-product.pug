@@ -1,0 +1,51 @@
+extends ../layouts/main-layout.pug
+
+block title 
+    if editing 
+        title Editing #{product.title}
+    else
+        title Add product
+
+block styles 
+    link(rel="stylesheet", href="/css/forms.css")
+    link(rel="stylesheet", href="/css/product.css")
+
+block content 
+    main
+        form.product-form(action=editing || isRedirect ? "/admin/edit-product" : "/admin/add-product", method="POST", enctype="multipart/form-data")
+            input(type="hidden", name="_csrf", value=csrfToken)
+            if editing || isRedirect
+                input(type="hidden", name="_id" ,value=isRedirect ? _id : product._id)
+            .form-control
+                label(for="title") Title
+                input(type="text" ,name="title" ,id="title", value=editing ? product.title : title) 
+
+            .form-control
+                label(for="price") Price
+                input(type="number", name="price", id="price", step="0.01", value=editing ? product.price : price) 
+            
+            .form-control
+                label(for="image") Image
+                input(type="file", name="image", id="image") 
+                span 
+                    small upload an image only if you want to replace the old one
+           
+            .form-control
+                label(for="description") Descrption
+
+                if editing
+                    textarea(name="description",id="desc", rows="5") #{product.description}
+                else 
+                    textarea(name="description",id="desc", rows="5") #{description}
+
+
+            input.btn(type="submit" value=editing || isRedirect ? 'Finish Editing' : 'Add Product')
+        case msg
+            when "invalidtitle"
+                p.errMsg enter a vaild title
+            when "invalidprice"
+                p.errMsg enter a vaild price
+            when "invalidimage"
+                p.errMsg upload a vaild image
+            when "invaliddescription"
+                p.errMsg enter a vaild description

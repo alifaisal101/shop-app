@@ -1,0 +1,40 @@
+extends ../layouts/main-layout
+
+block styles 
+    link(rel="stylesheet", href="/css/product.css")
+    link(rel="stylesheet", href="/css/forms.css")
+
+block title 
+    title Products
+
+block content 
+    main
+        if products.length > 0
+            .grid
+                each product in products
+                    article.card.product-item
+                        header.card__header
+                            h1.product__title #{product.title}
+
+                        .card__image
+                            img(src=product.image, alt="A Book")
+
+                        .card__content
+                            h2.product__price $#{product.price}
+                            p.product__description #{product.description}
+
+                        .card__actions
+                            span
+                                input(type="hidden", name="productId", value=product._id)
+                                input(type="hidden", name="_csrf", value=csrfToken)
+                                button.btn.danger(onclick='deleteProduct(this)' ) delete
+                            a.btn.primary(href="/admin/edit-product/" + product._id) Edit
+            h3(align="center")
+                each page in pages
+                    if page == selectedPage
+                        span.btn.page.selectedPage #{page}
+                    else
+                        a.btn.page(href=`?page=${page}`) #{page}
+        else 
+            h1 No products
+        script(src="/js/admin.js")

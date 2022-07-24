@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        block title
+        link(rel="stylesheet", href="/css/main.css")
+        block styles
+    body
+        .backdrop
+        header.main-header
+            button(id="side-menu-toggle") Menu
+            nav.main-header__nav 
+                ul.main-header__item-list
+                    li.main-header__item
+                        a(href='/', class=(page === 'Home' ? 'active' : '')) Home
+                    li.main-header__item
+                        a(href='/shop?page=1', class=(page === 'shop' ? 'active' : '')) Shop
+                    if userData                     
+                        li.main-header__item
+                            a(href='/cart', class=(page === 'cart' ? 'active' : '')) Cart
+                        li.main-header__item
+                            a(href='/orders', class=(page === 'orders' ? 'active' : '')) Orders
+                        li.main-header__item
+                            a(href='/admin/products?page=1' class=(page === 'products' ? 'active' : '')) Products
+                        li.main-header__item
+                            a(href='/admin/add-product' class=(page === 'add-product' ? 'active' : '')) Add products
+
+                ul.main-header__item-list
+                    if userData
+                        li.main-header__item
+                            a(href="#") Hi #{userData.firstName} #{userData.lastName}
+                            form(action="/logout", method="post")
+                                input(type="hidden", name="_csrf", value=csrfToken)
+                                button.btn(type="submit") Logout                         
+                    else
+                        li.main-header__item
+                            a(href="/login") Login
+                        li.main-header__item
+                            a(href="/register") Register
+                    
+           
+        nav.mobile-nav
+            ul.mobile-nav__item-list
+                li.mobile-nav__item
+                    a(href='/', class=(page === 'Home' ? 'active' : '')) Home
+                li.mobile-nav__item
+                    a(href='/shop', class=(page === 'shop' ? 'active' : '')) Shop
+                if userData 
+                    li.mobile-nav__item
+                        a(href='/cart', class=(page === 'cart' ? 'active' : '')) Cart
+                    li.mobile-nav__item
+                        a(href='/orders', class=(page === 'orders' ? 'active' : '')) Orders
+                    li.mobile-nav__item
+                        a(href='/admin/products' class=(page === 'products' ? 'active' : '')) Products
+                    li.mobile-nav__item
+                        a(href='/admin/add-product' class=(page === 'add-product' ? 'active' : '')) Add products
+                    li.mobile-nav__item
+                        a(href="#") Hi #{userData.firstName} #{userData.lastName}
+                    li.mobile-nav__item
+                        form(action="/logout", method="post")
+                            input(type="hidden", name="_csrf", value=csrfToken)
+                            button.btn(type="submit") Logout
+                else 
+                    li.mobile-nav__item
+                        a(href="/login") Login
+                    li.mobile-nav__item
+                        a(href="/register") Register
+            
+
+
+        block content
+        script(src="/js/main.js")        
