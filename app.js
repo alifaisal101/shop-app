@@ -1,24 +1,24 @@
-const path = require("path");
-const crypto = require("crypto");
+const path = require('path');
+const crypto = require('crypto');
 
-const express = require("express");
-const bodyParser = require("body-parser");
-const session = require("express-session");
-const mongoose = require("mongoose");
-const MongodbStore = require("connect-mongo");
-const csrf = require("csurf");
-const sgMail = require("@sendgrid/mail");
+const express = require('express');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const mongoose = require('mongoose');
+const MongodbStore = require('connect-mongo');
+const csrf = require('csurf');
+const sgMail = require('@sendgrid/mail');
 //const multer = require("multer");
 
-const rootDir = require("./util/functions/path");
+const rootDir = require('./util/functions/path');
 
-const User = require("./models/user");
+const User = require('./models/user');
 
-const shop = require("./Routes/shop");
-const auth = require("./Routes/auth");
-const admin = require("./Routes/admin.js");
+const shop = require('./Routes/shop');
+const auth = require('./Routes/auth');
+const admin = require('./Routes/admin.js');
 
-const errorController = require("./controllers/error.con");
+const errorController = require('./controllers/error.con');
 
 const app = express();
 
@@ -58,8 +58,8 @@ const app = express();
 
 //sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-app.set("view engine", "pug");
-app.set("views", path.join(rootDir, "views"));
+app.set('view engine', 'pug');
+app.set('views', path.join(rootDir, 'views'));
 
 app.use((req, res, next) => {
   delete req.session;
@@ -67,14 +67,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static(path.join(rootDir, "public")));
+app.use(express.static(path.join(rootDir, 'public')));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(
   session({
     secret:
-      "CRKtEyc!D\b4td<R3&L#gWk#Nmo/t~pWiS*nQehYEQ5KdQTbspX55@Z9F*_p_9fxDxCdewZsuaWuVW`wVfdcw=AX/-QESo#%NAACL@CChggr>j\4p~`jRh^W*Wjwh<+",
+      'CRKtEyc!D\b4td<R3&L#gWk#Nmo/t~pWiS*nQehYEQ5KdQTbspX55@Z9F*_p_9fxDxCdewZsuaWuVW`wVfdcw=AX/-QESo#%NAACL@CChggr>j\4p~`jRh^W*Wjwh<+',
     resave: false,
     saveUninitialized: false,
     store: MongodbStore.create({
@@ -88,10 +88,10 @@ const csrfProtection = csrf();
 app.use((req, res, next) => {
   if (req.session.userId) {
     User.findById(req.session.userId, [
-      "firstName",
-      "lastName",
-      "email",
-      "cart",
+      'firstName',
+      'lastName',
+      'email',
+      'cart',
     ])
       .then((userDataFromDB) => {
         if (!userDataFromDB) {
@@ -122,7 +122,7 @@ app.use((req, res, next) => {
   res.locals.userData = res.userData;
   next();
 });
-app.use("/admin", admin);
+app.use('/admin', admin);
 app.use(auth);
 app.use(shop);
 
@@ -130,7 +130,7 @@ app.use(errorController.error404);
 app.use((error, req, res, next) => {
   res
     .status(error.httpStatusCode)
-    .render("500error", { userData: res.userData });
+    .render('500error', { userData: res.userData });
 });
 
 mongoose
