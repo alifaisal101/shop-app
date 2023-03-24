@@ -1,8 +1,8 @@
-const path = require(path);
+const path = require("path");
 
 const formidable = require("formidable");
 
-const rootDir = require("./util/functions/path");
+const rootDir = require("./../util/functions/path");
 
 module.exports = (req, res, next) => {
   var form = new formidable.IncomingForm();
